@@ -52,6 +52,12 @@ class VideoCell: UICollectionViewCell {
         return imageView
     }()
     
+    let profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .green
+        return imageView
+    }()
+    
     let separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
@@ -61,9 +67,14 @@ class VideoCell: UICollectionViewCell {
     func setupViews() {
         addSubview(thumbnailImageView)
         addSubview(separatorView)
+        addSubview(profileImageView)
         
         addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: thumbnailImageView)
-        addConstraintsWithFormat(format: "V:|-16-[v0]-16-[v1(1)]|", views: thumbnailImageView, separatorView)
+        
+        addConstraintsWithFormat(format: "H:|-16-[v0(44)]", views: profileImageView)
+        
+        // Vertical Constraints
+        addConstraintsWithFormat(format: "V:|-16-[v0]-8-[v1(44)]-16-[v2(1)]|", views: thumbnailImageView, profileImageView, separatorView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: separatorView)
     }
     
