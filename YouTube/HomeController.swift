@@ -16,7 +16,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         navigationItem.title = "Home"
         collectionView?.backgroundColor = .white
         
-        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cellId")
+        collectionView?.register(VideoCell.self, forCellWithReuseIdentifier: "cellId")
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -27,12 +27,40 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
         
-        cell.backgroundColor = .red
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 200)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+}
+
+class VideoCell: UICollectionViewCell {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+    }
+    
+    let thumbnailImageView : UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .blue
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    func setupViews() {
+        addSubview(thumbnailImageView)
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-16-[v0]-16-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": thumbnailImageView]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-16-[v0]-16-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": thumbnailImageView]))
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
